@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/cStudy/Serialize/cmp.c" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cStudy/Serialize/cmp.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cStudy/Serialize/example1.c" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cStudy/Serialize/example2.c" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/.cache/postsuccess.txt" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/api/es.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/app.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/config/config.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/config/es-schema.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/config/protocol/SysPacketDef.proto" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/lib/Email.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/lib/channel-factory.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/lib/dataTransfer.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/lib/fillTCPRQData.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/lib/httpRequest.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/lib/log.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/lib/redis/chatbar.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-server/package.json" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-visa/api/rpc.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-visa/app.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-visa/config/config.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-visa/lib/redis/chatbar.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-websocket-test/src/index.js" charset="UTF-8" />
+    <file url="file://E:/git/paipaih5-websocket-test/src/parallel.js" charset="UTF-8" />
+  </component>
+</project>

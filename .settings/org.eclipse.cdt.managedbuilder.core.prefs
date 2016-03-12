@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+environment/buildEnvironmentInclude/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/CPATH/delimiter=;
+environment/buildEnvironmentInclude/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/CPATH/operation=remove
+environment/buildEnvironmentInclude/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/CPLUS_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/CPLUS_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/C_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/C_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/append=true
+environment/buildEnvironmentInclude/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/appendContributed=true
+environment/buildEnvironmentLibrary/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/LIBRARY_PATH/delimiter=;
+environment/buildEnvironmentLibrary/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/LIBRARY_PATH/operation=replace
+environment/buildEnvironmentLibrary/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/LIBRARY_PATH/value=E\:\\MinGW\\lib
+environment/buildEnvironmentLibrary/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/append=true
+environment/buildEnvironmentLibrary/cdt.managedbuild.toolchain.gnu.cygwin.base.1871709255/appendContributed=true
