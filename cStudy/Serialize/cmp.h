@@ -1,112 +1,118 @@
 /*
-The MIT License (MIT)
+ The MIT License (MIT)
 
-Copyright (c) 2015 Charles Gunyon
+ Copyright (c) 2015 Charles Gunyon
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ */
 
 #ifndef CMP_H__
 #define CMP_H__
 
 struct cmp_ctx_s;
 
-typedef bool   (*cmp_reader)(struct cmp_ctx_s *ctx, void *data, size_t limit);
+typedef bool (*cmp_reader)(struct cmp_ctx_s *ctx, void *data, size_t limit);
 typedef size_t (*cmp_writer)(struct cmp_ctx_s *ctx, const void *data,
-                                                    size_t count);
+		size_t count);
 
-enum {
-  CMP_TYPE_POSITIVE_FIXNUM, /*  0 */
-  CMP_TYPE_FIXMAP,          /*  1 */
-  CMP_TYPE_FIXARRAY,        /*  2 */
-  CMP_TYPE_FIXSTR,          /*  3 */
-  CMP_TYPE_NIL,             /*  4 */
-  CMP_TYPE_BOOLEAN,         /*  5 */
-  CMP_TYPE_BIN8,            /*  6 */
-  CMP_TYPE_BIN16,           /*  7 */
-  CMP_TYPE_BIN32,           /*  8 */
-  CMP_TYPE_EXT8,            /*  9 */
-  CMP_TYPE_EXT16,           /* 10 */
-  CMP_TYPE_EXT32,           /* 11 */
-  CMP_TYPE_FLOAT,           /* 12 */
-  CMP_TYPE_DOUBLE,          /* 13 */
-  CMP_TYPE_UINT8,           /* 14 */
-  CMP_TYPE_UINT16,          /* 15 */
-  CMP_TYPE_UINT32,          /* 16 */
-  CMP_TYPE_UINT64,          /* 17 */
-  CMP_TYPE_SINT8,           /* 18 */
-  CMP_TYPE_SINT16,          /* 19 */
-  CMP_TYPE_SINT32,          /* 20 */
-  CMP_TYPE_SINT64,          /* 21 */
-  CMP_TYPE_FIXEXT1,         /* 22 */
-  CMP_TYPE_FIXEXT2,         /* 23 */
-  CMP_TYPE_FIXEXT4,         /* 24 */
-  CMP_TYPE_FIXEXT8,         /* 25 */
-  CMP_TYPE_FIXEXT16,        /* 26 */
-  CMP_TYPE_STR8,            /* 27 */
-  CMP_TYPE_STR16,           /* 28 */
-  CMP_TYPE_STR32,           /* 29 */
-  CMP_TYPE_ARRAY16,         /* 30 */
-  CMP_TYPE_ARRAY32,         /* 31 */
-  CMP_TYPE_MAP16,           /* 32 */
-  CMP_TYPE_MAP32,           /* 33 */
-  CMP_TYPE_NEGATIVE_FIXNUM  /* 34 */
+enum
+{
+	CMP_TYPE_POSITIVE_FIXNUM, /*  0 */
+	CMP_TYPE_FIXMAP, /*  1 */
+	CMP_TYPE_FIXARRAY, /*  2 */
+	CMP_TYPE_FIXSTR, /*  3 */
+	CMP_TYPE_NIL, /*  4 */
+	CMP_TYPE_BOOLEAN, /*  5 */
+	CMP_TYPE_BIN8, /*  6 */
+	CMP_TYPE_BIN16, /*  7 */
+	CMP_TYPE_BIN32, /*  8 */
+	CMP_TYPE_EXT8, /*  9 */
+	CMP_TYPE_EXT16, /* 10 */
+	CMP_TYPE_EXT32, /* 11 */
+	CMP_TYPE_FLOAT, /* 12 */
+	CMP_TYPE_DOUBLE, /* 13 */
+	CMP_TYPE_UINT8, /* 14 */
+	CMP_TYPE_UINT16, /* 15 */
+	CMP_TYPE_UINT32, /* 16 */
+	CMP_TYPE_UINT64, /* 17 */
+	CMP_TYPE_SINT8, /* 18 */
+	CMP_TYPE_SINT16, /* 19 */
+	CMP_TYPE_SINT32, /* 20 */
+	CMP_TYPE_SINT64, /* 21 */
+	CMP_TYPE_FIXEXT1, /* 22 */
+	CMP_TYPE_FIXEXT2, /* 23 */
+	CMP_TYPE_FIXEXT4, /* 24 */
+	CMP_TYPE_FIXEXT8, /* 25 */
+	CMP_TYPE_FIXEXT16, /* 26 */
+	CMP_TYPE_STR8, /* 27 */
+	CMP_TYPE_STR16, /* 28 */
+	CMP_TYPE_STR32, /* 29 */
+	CMP_TYPE_ARRAY16, /* 30 */
+	CMP_TYPE_ARRAY32, /* 31 */
+	CMP_TYPE_MAP16, /* 32 */
+	CMP_TYPE_MAP32, /* 33 */
+	CMP_TYPE_NEGATIVE_FIXNUM /* 34 */
 };
 
-typedef struct cmp_ext_s {
-  int8_t type;
-  uint32_t size;
+typedef struct cmp_ext_s
+{
+	int8_t type;
+	uint32_t size;
 } cmp_ext_t;
 
-union cmp_object_data_u {
-  bool      boolean;
-  uint8_t   u8;
-  uint16_t  u16;
-  uint32_t  u32;
-  uint64_t  u64;
-  int8_t    s8;
-  int16_t   s16;
-  int32_t   s32;
-  int64_t   s64;
-  float     flt;
-  double    dbl;
-  uint32_t  array_size;
-  uint32_t  map_size;
-  uint32_t  str_size;
-  uint32_t  bin_size;
-  cmp_ext_t ext;
+union cmp_object_data_u
+{
+	bool boolean;
+	uint8_t u8;
+	uint16_t u16;
+	uint32_t u32;
+	uint64_t u64;
+	int8_t s8;
+	int16_t s16;
+	int32_t s32;
+	int64_t s64;
+	float flt;
+	double dbl;
+	uint32_t array_size;
+	uint32_t map_size;
+	uint32_t str_size;
+	uint32_t bin_size;
+	cmp_ext_t ext;
 };
 
-typedef struct cmp_ctx_s {
-  uint8_t     error;
-  void       *buf;
-  cmp_reader  read;
-  cmp_writer  write;
+typedef struct cmp_ctx_s
+{
+	uint8_t error;
+	void *buf;
+	cmp_reader read;
+	cmp_writer write;
 } cmp_ctx_t;
 
-typedef struct cmp_object_s {
-  uint8_t type;
-  union cmp_object_data_u as;
+typedef struct cmp_object_s
+{
+	uint8_t type;
+	union cmp_object_data_u as;
 } cmp_object_t;
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*
@@ -203,7 +209,7 @@ bool cmp_write_map(cmp_ctx_t *ctx, uint32_t size);
 
 /* Writes an extended type to the backend */
 bool cmp_write_ext(cmp_ctx_t *ctx, int8_t type, uint32_t size,
-                                   const void *data);
+		const void *data);
 
 /*
  * Writes the extended type marker to the backend.  This is useful if you want
@@ -360,13 +366,13 @@ bool cmp_write_fixext16(cmp_ctx_t *ctx, int8_t type, const void *data);
 
 bool cmp_write_ext8_marker(cmp_ctx_t *ctx, int8_t type, uint8_t size);
 bool cmp_write_ext8(cmp_ctx_t *ctx, int8_t type, uint8_t size,
-                                    const void *data);
+		const void *data);
 bool cmp_write_ext16_marker(cmp_ctx_t *ctx, int8_t type, uint16_t size);
 bool cmp_write_ext16(cmp_ctx_t *ctx, int8_t type, uint16_t size,
-                                     const void *data);
+		const void *data);
 bool cmp_write_ext32_marker(cmp_ctx_t *ctx, int8_t type, uint32_t size);
 bool cmp_write_ext32(cmp_ctx_t *ctx, int8_t type, uint32_t size,
-                                     const void *data);
+		const void *data);
 
 bool cmp_read_pfix(cmp_ctx_t *ctx, uint8_t *c);
 bool cmp_read_nfix(cmp_ctx_t *ctx, int8_t *c);
@@ -449,8 +455,10 @@ bool cmp_object_as_array(cmp_object_t *obj, uint32_t *size);
 bool cmp_object_as_map(cmp_object_t *obj, uint32_t *size);
 bool cmp_object_as_ext(cmp_object_t *obj, int8_t *type, uint32_t *size);
 
-bool cmp_object_to_str(cmp_ctx_t *ctx, cmp_object_t *obj, char *data, uint32_t buf_size);
-bool cmp_object_to_bin(cmp_ctx_t *ctx, cmp_object_t *obj, void *data, uint32_t buf_size);
+bool cmp_object_to_str(cmp_ctx_t *ctx, cmp_object_t *obj, char *data,
+		uint32_t buf_size);
+bool cmp_object_to_bin(cmp_ctx_t *ctx, cmp_object_t *obj, void *data,
+		uint32_t buf_size);
 
 #ifdef __cplusplus
 } /* extern "C" */

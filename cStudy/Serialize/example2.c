@@ -67,7 +67,7 @@ int main(void) {
     uint32_t map_size = 0;
     int8_t ext_type = 0;
     uint32_t ext_size = 0;
-    char sbuf[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    char sbuf[12] = {0};
 
     fh = fopen("cmp_data.dat", "w+b");
 

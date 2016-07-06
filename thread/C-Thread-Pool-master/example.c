@@ -17,36 +17,49 @@
 #include "thpool.h"
 
 
-void task1(){
-	printf("Thread #%u working on task1\n", (int)pthread_self());
+void task1() {
+    int num = 0;
+    int i = 0;
+    for (; i < 1000; i++) {
+        num += i;
+    }
+    printf("Thread #%u working on task1,num=%d\n", (int) pthread_self(), num);
     sleep(1);
 }
 
 
-void task2(){
-	printf("Thread #%u working on task2\n", (int)pthread_self());
-	sleep(1);
+void task2() {
+    int num = 0;
+    int i=0;
+    for (;i<1000;i++)
+    {
+        num+=i;
+    }
+    printf("Thread #%u working on task2,num=%d\n", (int) pthread_self(),num);
+    sleep(1);
 }
 
 
-int main(){
-	
-	puts("Making threadpool with 4 threads");
-	threadpool thpool = thpool_init(4);
+int main() {
 
-	puts("Adding 40 tasks to threadpool");
-	int i;
-	for (i=0; i<20; i++){
-		thpool_add_work(thpool, (void*)task1, NULL);
-		thpool_add_work(thpool, (void*)task2, NULL);
-	};
-	puts("add work ending");
-	while(1)
-	{
-	}
-	//puts("add work ending");
-	//puts("Killing threadpool");
-	//thpool_destroy(thpool);
-	
-	return 0;
+    puts("Making threadpool with 4 threads");
+    threadpool thpool = thpool_init(4);
+
+    puts("Adding 40 tasks to threadpool");
+    int i;
+    for (i = 0; i < 20; i++) {
+        thpool_add_work(thpool, (void *) task1, NULL);
+        thpool_add_work(thpool, (void *) task2, NULL);
+    };
+    puts("add work ending");
+    while (1) {
+    }
+    //puts("add work ending");
+    //puts("Killing threadpool");
+    //thpool_destroy(thpool);
+
+    return 0;
 }
+
+
+//编译命令：gcc example.c thpool.c -D THPOOL_DEBUG -pthread -o example

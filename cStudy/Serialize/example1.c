@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <stdlib.h>
 
 #include "cmp.h"
-
+typedef unsigned char BYTE;
 static bool read_bytes(void *data, size_t sz, FILE *fh) {
     return fread(data, sizeof(uint8_t), sz, fh) == (sz * sizeof(uint8_t));
 }
@@ -48,13 +48,15 @@ void error_and_exit(const char *msg) {
 
 int main(void) {
     FILE *fh = NULL;
+	BYTE buff[128] = { 0 };
+//	void *data = buff;
     cmp_ctx_t cmp;
     uint32_t array_size = 0;
     uint32_t str_size = 0;
-    char hello[6] = {0, 0, 0, 0, 0, 0};
-    char message_pack[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    char hello[6] = {0};
+	char message_pack[12] = { 0 };
 
-    fh = fopen("cmp_data.dat", "w+b");
+	fh = fopen("cmp_data.dat", "w+r+b");
 
     if (fh == NULL)
         error_and_exit("Error opening data.dat");
@@ -69,36 +71,65 @@ int main(void) {
 
     if (!cmp_write_str(&cmp, "MessagePack", 11))
         error_and_exit(cmp_strerror(&cmp));
-    printf("%x\n",cmp);
     rewind(fh);
+    //fclose(fh);
+    printf("%x\n",fh);
+    fgets (buff , sizeof(buff) , fh);
+    printf("%s\n",buff);
+    int i=0;
+    int len=strlen(buff);
+    for(;i<len;i++)
+    {
+    	printf("%x",buff[i]);
+    }
+    printf("\n");
 
-    if (!cmp_read_array(&cmp, &array_size))
-        error_and_exit(cmp_strerror(&cmp));
+//    FILE * f;
+//    char buffer[128]={0};
+//    f = fopen  ("cmp_data.dat" , "r");
+//    if (f == NULL) perror ("Error opening file");
+//    else
+//    {
+//    	while ( ! feof (f) )
+//    	{
+//    		fgets (buffer , sizeof(buffer) , f);
+//    		//fputs (buffer , stdout);
+//    		printf("%x\n",buffer);
+//    	}
+//    	fclose (f);
+//   }
 
-    /* You can read the str byte size and then read str bytes... */
 
-    if (!cmp_read_str_size(&cmp, &str_size))
-        error_and_exit(cmp_strerror(&cmp));
 
-    if (str_size > (sizeof(hello) - 1))
-        error_and_exit("Packed 'hello' length too long\n");
-
-    if (!read_bytes(hello, str_size, fh))
-        error_and_exit(cmp_strerror(&cmp));
-
-    /*
-     * ...or you can set the maximum number of bytes to read and do it all in
-     * one call
-     */
-
-    str_size = sizeof(message_pack);
-    if (!cmp_read_str(&cmp, message_pack, &str_size))
-        error_and_exit(cmp_strerror(&cmp));
-
-    printf("Array Length: %u.\n", array_size);
-    printf("[\"%s\", \"%s\"]\n", hello, message_pack);
-
-    fclose(fh);
+//    rewind(fh);
+//
+//    if (!cmp_read_array(&cmp, &array_size))
+//        error_and_exit(cmp_strerror(&cmp));
+//
+//    /* You can read the str byte size and then read str bytes... */
+//
+//    if (!cmp_read_str_size(&cmp, &str_size))
+//        error_and_exit(cmp_strerror(&cmp));
+//
+//    if (str_size > (sizeof(hello) - 1))
+//        error_and_exit("Packed 'hello' length too long\n");
+//
+//    if (!read_bytes(hello, str_size, fh))
+//        error_and_exit(cmp_strerror(&cmp));
+//
+//    /*
+//     * ...or you can set the maximum number of bytes to read and do it all in
+//     * one call
+//     */
+//
+//    str_size = sizeof(message_pack);
+//    if (!cmp_read_str(&cmp, message_pack, &str_size))
+//        error_and_exit(cmp_strerror(&cmp));
+//
+//    printf("Array Length: %u.\n", array_size);
+//    printf("[\"%s\", \"%s\"]\n", hello, message_pack);
+//
+//    fclose(fh);
 
     return EXIT_SUCCESS;
 }

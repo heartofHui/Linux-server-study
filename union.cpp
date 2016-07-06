@@ -27,7 +27,7 @@ struct TYPE_STRING//自定义字符串
 
 union Data//
 {
-    int i;
+    const int * i;
     float f;
     struct TYPE_STRING str;//使用字符数组时注意越界
 };
@@ -41,7 +41,7 @@ struct data_union
     {
         //printf("set int\n");
         dataType=TYPE_INT;
-        uData.i=val;
+        uData.i=&val;
     }
     void setFloat(float val)
     {
@@ -54,6 +54,7 @@ struct data_union
         uData.str.setVal(val);
         //uData.str.content=val;
     }
+	
 };
 
 void Print(struct data_union d)
@@ -61,7 +62,7 @@ void Print(struct data_union d)
     switch(d.dataType)
     {
         case TYPE_INT:
-            printf("int:%d\n",d.uData.i);
+            printf("int:%d\n",*(d.uData.i));
             break;
         case TYPE_FLOAT:
             printf("float:%f\n",d.uData.f);
@@ -74,6 +75,7 @@ void Print(struct data_union d)
             printf("unknown data type\n");
     }
 }
+
 int main(){
 
 	struct data_union data;
@@ -89,6 +91,11 @@ int main(){
 
 	float f=12.33;
 	data.setFloat(f);
+	Print(data);
+
+	data.setInt(120);
+	Print(data);
+	data.setInt(110);
 	Print(data);
 	return 0;
 }
