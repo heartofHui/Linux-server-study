@@ -45,6 +45,13 @@ int main()
 		int code = root["code"].asInt();    // 访问节点，code = 100
 		cout << "code:" << code << endl;
 		cout << "upload:" << upload_id << endl;
+		cout<<"-------"<<endl;
+		if(!root["testss"].empty() && root["testss"].isString())
+		{
+			std::string ss = root["testss"].asString();
+			cout << "ss:" << ss << endl;
+		}
+		cout<<"-------"<<endl;
 	}
 
 	Json::Value testRoot;
@@ -83,6 +90,13 @@ int main()
 	testRoot["sex"].append(2);
 	string ss = "test";
 	testRoot["test"] = Json::Value(ss);
+	
+	string testKey = "chenhui";
+	testRoot[testKey] = Json::Value("ddddas");
+	
+
+	testRoot["chenarr"].append(jsontmp);
+	
 	const char *txt;
 	txt = fast_writer.write(testRoot).c_str();
 	cout << "jsontxt: " << txt << endl;

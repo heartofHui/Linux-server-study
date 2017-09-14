@@ -100,13 +100,45 @@ bool reserve_space(Buffer* b, size_t bytes)
 		{
 			return false;
 		}
-		b->data = (char *)realloc(b->data, b->size * 2);
+		b->data = (unsigned char *)realloc(b->data, b->size * 2);
 		b->size *= 2;
 	}
 	return true;
 }
 
-void MemSerialize(int32_t t,Buffer* b)
+Buffer::Buffer()
+{
+	printf("construct\n");
+	this->data = (unsigned char *)malloc(INI_BUFF_SIZE);
+	memset(this->data, 0, INI_BUFF_SIZE);
+	this->size = INI_BUFF_SIZE;
+	this->next = 0;
+}
+
+Buffer::~Buffer()
+{
+	free(this->data);
+	this->data = NULL;
+}
+
+Buffer::Buffer(Buffer& other)
+{
+	printf("copy construct\n");
+	this->data = (unsigned char *) malloc(INI_BUFF_SIZE);
+	memcpy(this->data, other.data, other.size);
+	this->size = other.size;
+	this->next = 0;
+}
+
+Buffer::Buffer(unsigned char * src, int32_t s)
+{
+	this->data = (unsigned char *)malloc(INI_BUFF_SIZE);
+	memcpy(this->data, src, s);
+	this->size = s;
+	this->next = 0;
+}
+
+void MemSerialize(int32_t t, Buffer* b)
 {
 	beNetData(t);
 	reserve_space(b, sizeof(int32_t));
@@ -122,6 +154,22 @@ void MemSerialize(int64_t t,Buffer* b)
 	b->next += sizeof(int64_t);
 }
 
+void MemSerialize(float t, Buffer* b)
+{
+	beNetData(t);
+	reserve_space(b, sizeof(float));
+	memcpy(b->data + b->next, &t, sizeof(float));
+	b->next += sizeof(float);
+}
+
+void MemSerialize(double t, Buffer* b)
+{
+	beNetData(t);
+	reserve_space(b, sizeof(double));
+	memcpy(b->data + b->next, &t, sizeof(double));
+	b->next += sizeof(double);
+}
+
 void MemSerialize(std::string s,Buffer* b)
 {
 	reserve_space(b, s.length());
@@ -129,10 +177,43 @@ void MemSerialize(std::string s,Buffer* b)
 	b->next += s.length();
 }
 
-void MemSerialize(char* s,Buffer* b)
+void MemSerialize(char* s, Buffer* b)
 {
-	reserve_space(b,strlen(s));
-	memcpy(b->data + b->next, s,strlen(s));
+	reserve_space(b, strlen(s));
+	memcpy(b->data + b->next, s, strlen(s));
 	b->next += strlen(s);
-	//printf("len:%d\n",strlen(s));
+}
+
+void MemDeseriaize(int32_t& t, Buffer& b, int32_t size)
+{
+	try{
+		memcpy(&t, b.data + b.next, size);
+		beNetData(t);
+		b.next += size;
+	} catch (...) {
+		printf("catch exception\n");
+	}
+}
+
+void MemDeseriaize(int64_t& t, Buffer& b, int32_t size)
+{
+	try{
+		memcpy(&t, b.data + b.next, sizeof(size));
+		beNetData(t);
+		b.next += size;
+	}catch(...)
+	{
+		printf("catch exception\n");
+	}
+}
+
+void MemDeseriaize(char* s, Buffer& b, int32_t size)
+{
+	try{
+		memcpy(s, b.data + b.next, sizeof(size));
+		b.next += size;
+	}catch(...)
+	{
+		printf("catch exception\n");
+	}
 }

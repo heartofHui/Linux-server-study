@@ -2,59 +2,74 @@
 #include <string>
 #include <stdio.h>
 #include "serialize.h"
+#include "struct/UserInfoStruct.h"
 
 using namespace std;
-struct STRING
-{
-	int32_t len;
-	char s[1024];
-	STRING()
-	{
-		len = 0;
-		memset(s,0,2014);
-	}
-};
 
-struct UserInfo
+typedef signed char			int8;
+typedef signed short		int16;
+typedef signed int			int32;
+typedef long long			int64;
+
+typedef unsigned char		uint8;
+typedef unsigned short		uint16;
+typedef unsigned int 		uint32;
+typedef unsigned long long  uint64;
+
+typedef unsigned char 		BYTE;
+
+
+void printBufferHex(unsigned char * buff, int32_t size)
 {
-private:
-	int32_t age;
-	int32_t height;
-	STRING name;
-public:
-	UserInfo()
+	for (int i = 0; i < size; i++)
 	{
-		age = 1;
-		height = 300;
-		name.len = 2;
-		strcpy((name.s),"ss");
+		printf("%02X", buff[i]);
 	}
-	bool pack(Buffer* buff)
+	printf("\n");
+}
+
+void printfBuffer(Buffer* buffer)
+{
+	for(int i = 0;i< buffer->size;i++)
 	{
-		MemSerialize(age, buff);
-		MemSerialize(height, buff);
-		MemSerialize(name.len, buff);
-		MemSerialize(name.s, buff);
-		return true;
+		printf("%02X", buffer->data[i]);
 	}
-	bool unpack()
-	{
-		return true;
-	}
-};
+	printf("\n");
+}
 
 int main()
 {
 	UserInfo uInfo;
+	uInfo.age = 2;
+	uInfo.height = 100;
+	strcpy(uInfo.name.s, "chen");
+	uInfo.name.len = strlen(uInfo.name.s);
+
 	Buffer* buff = new Buffer();
 	uInfo.pack(buff);
-	//cout<<(buff->data)<<endl;
+	//printBufferHex(buff->data, buff->next);
+	cout << "buff size:"<<buff->next << endl;
 
-	for(int i=0;i<buff->next;i++)
-	{
-		printf("%X\n", buff->data[i]);
-	}
-	cout<<sizeof(int32_t)<<endl;
-	cout<<buff->next<<endl;
+	unsigned char buf[1024] = { 0 }; // = buff->data;
+	memcpy(buf, buff->data, buff->next);
+	//printBufferHex(buf, buff->next);
+	int32_t size = buff->next;
+	Buffer psBuf(buf, size);
+	//printBufferHex(psBuf.data, psBuf.size);
+
+	printfBuffer(&psBuf);
+
+	UserInfo *recvUser = new UserInfo;
+	recvUser->unpack(psBuf);
+	recvUser->dump();
+	printf("%d,%d\n",psBuf.next,psBuf.size);
+
+//	cout << (unsigned int)UserInfo::unpack<<endl;
+	printf("func=%d",&UserInfo::unpack);
 	return 0;
 }
+
+/*
+ * g++ -c serialize/*.cpp
+ * ar rs libserialize.a *.o
+ * g++ test.cpp -L. -lserialize -Iserialize -o test*/
