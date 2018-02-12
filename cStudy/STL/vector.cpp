@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream> //
 #include <vector>
+#include "../Includes/times.h"
 using namespace std;
 
 const int BUILDING_SIZE = 10;//
@@ -20,23 +21,26 @@ int main()
 	vector<int> v1;//创建一个空的vector对象
 
 	vector<int> v2(10,1);//创建一个包含10个int类型数据的vector，并且都初始化为1
-
-	for(int i=1;i<9;i++){
-	    v1.push_back(i);
+	int64_t timeStart = getTimeUsec();
+	for (int i = 1; i < 100; i++)
+	{
+		v1.push_back(i);
 	}
-	cout<<"v1 first:"<<v1.front()<<endl;
-	cout<<"v1 back:"<<v1.back()<<endl;
-	cout<<"v1 capacity:"<<v1.capacity()<<endl;
-	cout<<"v1 size:"<<v1.size()<<endl;
-
-    cout<<"v2 first:"<<v2.front()<<endl;
-	cout<<"v2 back:"<<v2.back()<<endl;
-	cout<<"v2 capacity:"<<v2.capacity()<<endl;
-	cout<<"v2 size:"<<v2.size()<<endl;
-
-    Print(v1);
-    int a=2;
-    v1.insert(2,1);
+	int64_t timeEnd = getTimeUsec();
+	cout<<"timeuse:"<<timeEnd - timeStart <<endl;
+//	cout<<"v1 first:"<<v1.front()<<endl;
+//	cout<<"v1 back:"<<v1.back()<<endl;
+//	cout<<"v1 capacity:"<<v1.capacity()<<endl;
+//	cout<<"v1 size:"<<v1.size()<<endl;
+//
+//    cout<<"v2 first:"<<v2.front()<<endl;
+//	cout<<"v2 back:"<<v2.back()<<endl;
+//	cout<<"v2 capacity:"<<v2.capacity()<<endl;
+//	cout<<"v2 size:"<<v2.size()<<endl;
+//
+//    Print(v1);
+//    int a=2;
+//    v1.insert(2,1);
 	return 0;
 }
 
@@ -67,7 +71,7 @@ get_allocator // 使用构造函数返回一个拷贝。
 c.insert(pos,elem)    // 在pos位置插入一个elem拷贝，传回新数据位置。
 c.insert(pos,n,elem)  // 在pos位置插入n个elem数据。无返回值。
 c.insert(pos,beg,end) // 在pos位置插入在[beg,end)区间的数据。无返回值。
-　　
+
 c.max_size()       // 返回容器中最大数据的数量。
 c.pop_back()       // 删除最后一个数据。
 c.push_back(elem)  // 在尾部加入一个数据。

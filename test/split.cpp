@@ -34,5 +34,14 @@ int main()
 		cout<<*it<<endl;
 		it++;
 	}
+
+	string str1="bool getDataFromRedis(int a,int b)";
+	vector<string> arr1 = split(str1, "(");
+	vector<string> arr2 = split(arr1[0], " ");
+	if(arr2.size()>=2)
+	{
+		cout<<arr2[1]<<endl;
+	}
+
 	return 0;
 }

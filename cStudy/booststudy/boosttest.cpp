@@ -19,4 +19,4 @@ int main()
 	}
 	return 0;
 }
-//g++ -I/usr/local/include/ example2.cpp -o example2 /usr/local/lib/libboost_regex.a
+//g++ boosttest.cpp -o test -lboost_regex
